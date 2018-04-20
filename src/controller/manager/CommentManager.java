@@ -1,13 +1,18 @@
 package controller.manager;
+import java.sql.Connection;
+import model.db.DBManager;
 
 public class CommentManager {
 
-	private volatile static CommentManager instance = null;
+	private static volatile CommentManager instance = null;
+	private static Connection con;
 	
-	private CommentManager() {}
+	private CommentManager() {
+		con = DBManager.getInstance().getConnection();
+	}
 	
 	public static CommentManager getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			synchronized (CommentManager.class) {
 				if (instance == null) {
 					instance = new CommentManager();
