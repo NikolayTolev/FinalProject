@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import controller.manager.UserManager;
+
 /**
  * Servlet implementation class loginServlet
  */
@@ -19,15 +21,14 @@ public class loginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		// hash pass
-		if (username != null && password != null) {
-			// check if user exists in db
-			HttpSession session = request.getSession();
-			session.setAttribute("username", username);
+		
+		try {
+			UserManager.getInstance().loginUser(username, password);
+			request.getSession().setAttribute("username", username);
 			request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
-		} else {
-			PrintWriter out = response.getWriter();
-			out.write("Invalid username/password.");
+		} catch (Exception e) {
+			PrintWriter resp = response.getWriter();
+			resp.write(e.getMessage());
 			request.getRequestDispatcher("login.jsp").include(request, response);
 		}
 		
