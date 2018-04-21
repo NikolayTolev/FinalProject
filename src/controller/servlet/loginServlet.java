@@ -21,14 +21,13 @@ public class loginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
 		try {
 			UserManager.getInstance().loginUser(username, password);
 			request.getSession().setAttribute("username", username);
 			request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
 		} catch (Exception e) {
 			PrintWriter resp = response.getWriter();
-			resp.write(e.getMessage());
+			resp.print(e.getMessage());
 			request.getRequestDispatcher("login.jsp").include(request, response);
 		}
 		
