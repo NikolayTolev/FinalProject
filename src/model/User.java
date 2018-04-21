@@ -1,5 +1,9 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class User {
 
 	private int id;
@@ -11,19 +15,19 @@ public class User {
 	private String country;
 	private String biography;
 	private String photo;
+	private List<Post> posts;
 	
-	public User(String firstName, String lastName, String username, String password, String email, String country) {
+	public User(String firstName, String lastName, String username, String password, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.country = country;
+		this.posts=new ArrayList<>();
 	}
 
-	public User(int id, String firstName, String lastName, String username, String password, String email,
-			String country) {
-		this(firstName, lastName, username, password, email, country);
+	public User(int id, String firstName, String lastName, String username, String password, String email) {
+		this(firstName, lastName, username, password, email);
 		this.id = id;
 	}
 
@@ -75,5 +79,15 @@ public class User {
 		return country;
 	}
 	
+	public void setCountry(String country) {
+		this.country=country;
+	}
 	
+	public void deletePost(Post p) {
+		posts.remove(p);
+	}
+	
+	public List<Post> getPosts(){
+		return Collections.unmodifiableList(posts);
+	}
 }

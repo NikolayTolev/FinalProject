@@ -1,19 +1,50 @@
 package model.dao;
 
-public class CommentDAO {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-	private volatile static CommentDAO instance = null;
+import model.Comment;
+import model.Post;
+import model.db.DBManager;
+
+public enum CommentDAO implements ICommentDAO {
 	
-	private CommentDAO() {}
+    COMMENT_DAO;
 	
-	public static CommentDAO getInstance() {
-		if(instance == null) {
-			synchronized (CommentDAO.class) {
-				if(instance == null) {
-					instance = new CommentDAO();
-				}
-			}
-		}
-		return instance;
+	private Connection con;
+
+	CommentDAO(){
+		con=DBManager.DB_MANAGER.getConnection();
 	}
+
+	@Override
+	public Comment getCommentById(int id) throws SQLException {
+		String sql="SELECT id, first_name, last_name, username, password, email FROM users WHERE id =? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet r = ps.executeQuery();
+		
+		return null;
+	}
+
+	@Override
+	public void saveComment(Comment c) throws Exception{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteComment(Post p) throws Exception{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void saveSubComment(Comment parent, Comment child) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

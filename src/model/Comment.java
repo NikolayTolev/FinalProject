@@ -1,23 +1,26 @@
 package model;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Comment {
 
 	private int id;
-	private int userId;
-	private int postId;
-	private int parentId;
+	private User owner;
 	private String content;
+	private LocalDateTime time;
+	private List<Comment> replies;
 	
-	public Comment(int userId, int postId, int parentId, String content) {
-		super();
-		this.userId = userId;
-		this.postId = postId;
-		this.parentId = parentId;
-		this.content = content;
+	public Comment(User user, String content, LocalDateTime time) {
+		this.owner=user;
+		this.content=content;
+		this.time=time;
+		this.replies=new ArrayList<>();
 	}
 
-	public Comment(int id, int userId, int postId, int parentId, String content) {
-		this(userId, postId, parentId, content);
+	public Comment(int id, User user, String content, LocalDateTime time) {
+		this(user, content, time);
 		this.id = id;
 	}
 
@@ -29,19 +32,15 @@ public class Comment {
 		this.id = id;
 	}
 
-	public int getUserId() {
-		return userId;
-	}
-
-	public int getPostId() {
-		return postId;
-	}
-
-	public int getParentId() {
-		return parentId;
+	public User getOwner() {
+		return this.owner;
 	}
 
 	public String getContent() {
 		return content;
+	}
+	
+	public void addReply(Comment c) {
+		this.replies.add(c);
 	}
 }

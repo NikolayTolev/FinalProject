@@ -1,24 +1,31 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Post {
 
 	private int id;
-	private int userId;
-	private int sectionId;
+	private User owner;
+	private Section section;
 	private String imageURL;
 	private String title;
+	private List<Tag> tags;
+	private List<Comment> comments;
 	
-	public Post(int userId, int sectionId, String title) {
-		super();
-		this.userId = userId;
-		this.sectionId = sectionId;
-		this.title = title;
+	public Post(User u, String imageURL, String title, List<Tag> tags, Section section) {
+		this.owner=u;
+		this.imageURL = imageURL;
+		this.title=title;
+		this.tags=tags;
+		this.section=section;
+		this.comments=new ArrayList<>();
 	}
 
-	public Post(int id, int userId, int sectionId, String imageURL, String title) {
-		this(userId, sectionId, title);
+	public Post(int id, User u, String imageURL, String title, List<Tag> tags, Section section) {
+		this(u,imageURL,title,tags,section);
 		this.id = id;
-		this.imageURL = imageURL;
 	}
 
 	public int getId() {
@@ -37,15 +44,23 @@ public class Post {
 		this.imageURL = imageURL;
 	}
 
-	public int getUserId() {
-		return userId;
+	public User getOwner() {
+		return this.owner;
 	}
 
-	public int getSectionId() {
-		return sectionId;
+	public Section getSection() {
+		return section;
 	}
 
 	public String getTitle() {
 		return title;
+	}
+	
+	public List<Comment> getComments() {
+		return Collections.unmodifiableList(comments);
+	}
+	
+	public void deleteComment(Comment c) {
+		this.comments.remove(c);
 	}
 }

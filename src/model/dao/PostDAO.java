@@ -1,19 +1,71 @@
 package model.dao;
 
-public class PostDAO {
+import java.sql.Connection;
+import java.util.Collection;
 
-	private volatile static PostDAO instance = null;
+import model.Post;
+import model.Section;
+import model.Tag;
+import model.User;
+import model.db.DBManager;
+
+public enum PostDAO implements IPostDAO{
 	
-	private PostDAO() {}
+	POST_DAO;
 	
-	public static PostDAO getInstance() {
-		if(instance == null) {
-			synchronized (PostDAO.class) {
-				if(instance == null) {
-					instance = new PostDAO();
-				}
-			}
-		}
-		return instance;
+	private Connection con;
+
+	PostDAO(){
+		con=DBManager.DB_MANAGER.getConnection();
 	}
+
+	@Override
+	public Collection<Post> getPostsByTag(Tag... tags) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Post> getPostsBySection(Section section) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Post> getPostsByOwner(User u) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Post> getFreshPosts() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Post> getHotPost() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Post> getTrendingPost() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void savePost(Post p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deletePost(Post p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }
