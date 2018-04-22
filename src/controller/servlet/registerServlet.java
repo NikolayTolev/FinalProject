@@ -28,7 +28,7 @@ public class registerServlet extends HttpServlet {
 			
 			User user = new User(	request.getParameter("firstName"), request.getParameter("lastName"), 
 					request.getParameter("username"), request.getParameter("password"), 
-					request.getParameter("email"), request.getParameter("country"));
+					request.getParameter("email"));
 			UserManager.USER_MANAGER.registerUser(user);
 			request.getSession().setAttribute("username", user.getUsername());
 			request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);

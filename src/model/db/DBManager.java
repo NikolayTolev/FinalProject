@@ -8,10 +8,10 @@ public enum DBManager {
 
 	DB_MANAGER;
 	
-	private static final String DB_NAME = "";
+	private static final String DB_NAME = "9gag";
 	private static final String DB_IP = "localhost";
 	private static final String DB_PORT = "3306";
-	private static final String DB_PASS = "";
+	private static final String DB_PASS = "MATH3141592653589pi";
 	private static final String DB_USER = "root";
 	
 	private Connection connection;
