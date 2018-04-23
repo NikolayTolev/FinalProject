@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -54,25 +55,66 @@ public enum PostDAO implements IPostDAO{
 	}
 
 	@Override
-	public Collection<Post> getPostsBySection(Section section) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Post> getPostsBySection(Section section) throws SQLException {
+		List<Post> posts= new ArrayList<>();
+		String sql = "SELECT image_url, title, date, user_id FROM posts WHERE section_id=? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, section.getId());
+	    ResultSet rs = ps.executeQuery();
+	    
+	    while(rs.next()) {
+	    	User owner = UserDAO.USER_DAO.getUserById(rs.getInt("user_id"));
+		    Post p = new Post(owner)
+		    		    .imageURL(rs.getString("image_url"))
+		    		    .title(rs.getString("title"))
+		    		    .date(rs.getTimestamp("date").toLocalDateTime());
+		    posts.add(p);
+        }  
+	    
+	    return posts;  
 	}
 
 	@Override
-	public Collection<Post> getPostsByOwner(User u) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Post> getPostsByOwner(User u) throws SQLException {
+		List<Post> posts= new ArrayList<>();
+		String sql = "SELECT image_url, title, date, user_id FROM posts WHERE user_id=? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, u.getId());
+	    ResultSet rs = ps.executeQuery();
+	    
+	    while(rs.next()) {
+	    	User owner = UserDAO.USER_DAO.getUserById(rs.getInt("user_id"));
+		    Post p = new Post(owner)
+		    		    .imageURL(rs.getString("image_url"))
+		    		    .title(rs.getString("title"))
+		    		    .date(rs.getTimestamp("date").toLocalDateTime());
+		    posts.add(p);
+        }  
+	    
+	    return posts;  
 	}
 
 	@Override
-	public Collection<Post> getFreshPosts() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Post> getFreshPosts() throws SQLException {
+		List<Post> posts= new ArrayList<>();
+		String sql = "SELECT image_url, title, date, user_id FROM posts ORDERE BY date DESC ";
+		Statement s = con.createStatement();
+	    ResultSet rs = s.executeQuery(sql);
+	    
+	    while(rs.next()) {
+	    	User owner = UserDAO.USER_DAO.getUserById(rs.getInt("user_id"));
+		    Post p = new Post(owner)
+		    		    .imageURL(rs.getString("image_url"))
+		    		    .title(rs.getString("title"))
+		    		    .date(rs.getTimestamp("date").toLocalDateTime());
+		    posts.add(p);
+        }  
+	    
+	    return posts;  
 	}
 
 	@Override
-	public Collection<Post> getHotPost() throws Exception {
+	public Collection<Post> getHotPost() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -91,7 +133,7 @@ public enum PostDAO implements IPostDAO{
 
 	@Override
 	public void deletePost(Post p) throws SQLException {
-		// TODO Auto-generated method stub
+		//TODO
 		
 	}
 
