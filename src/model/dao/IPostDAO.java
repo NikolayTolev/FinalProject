@@ -18,4 +18,5 @@ public interface IPostDAO {
 	Collection<Post> getTrendingPost() throws Exception;
     void savePost(Post p) throws Exception;
     void deletePost(Post p) throws Exception;
+    void votePost(User u, Post p, int vote) throws Exception;
 }
