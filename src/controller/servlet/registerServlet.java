@@ -35,7 +35,7 @@ public class registerServlet extends HttpServlet {
 		} catch (RegisterException | SQLException e) {
 			PrintWriter pr = response.getWriter();
 			pr.write(e.getMessage());
-			request.getRequestDispatcher("login.jsp").include(request, response);
+			request.getRequestDispatcher("register.jsp").include(request, response);
 		}
 	}
 

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Welcome, <%= session.getAttribute("username") %></h1>
+	<h4 align="right">Welcome, <%= session.getAttribute("username") %></h4>
 	<form action="logout" method="get">
 		<input type="submit" value="Logout">
 	</form>

@@ -22,12 +22,11 @@ public class loginServlet extends HttpServlet {
 		try {
 			UserManager.USER_MANAGER.loginUser(username, password);
 			request.getSession().setAttribute("username", username);
-			request.setAttribute("posts", PostDAO.POST_DAO.getFreshPosts());
 			request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
 		} catch (Exception e) {
 			PrintWriter resp = response.getWriter();
 			resp.print(e.getMessage());
-			request.getRequestDispatcher("login.jsp").include(request, response);
+			request.getRequestDispatcher("index.jsp").include(request, response);
 		}
 		
 	}

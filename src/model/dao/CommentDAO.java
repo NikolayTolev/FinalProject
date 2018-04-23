@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import model.Comment;
 import model.Post;
@@ -30,11 +31,13 @@ public enum CommentDAO implements ICommentDAO {
 	@Override
 	public void saveComment(Post p, Comment c) throws Exception {
 		String sql = "INSERT INTO comments (content, user_id, post_id) VALUES (?, ?, ?);";
-		PreparedStatement ps = con.prepareStatement(sql);
+		PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, c.getContent());
 		ps.setInt(2, c.getOwner().getId());
 		ps.setInt(3, p.getId());
 		ps.executeUpdate();
+		ResultSet rs = ps.getGeneratedKeys();
+		c.setId(rs.getInt("id"));
 	}
 
 	@Override

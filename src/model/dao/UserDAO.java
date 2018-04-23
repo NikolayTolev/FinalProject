@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.mysql.jdbc.Statement;
+
 import model.BCrypt;
 import model.User;
 import model.db.DBManager;
@@ -21,13 +23,15 @@ public enum UserDAO implements IUserDAO {
 	@Override
 	public void saveUser(User u) throws SQLException {
 		String sql = "INSERT INTO users (email, password, username, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
-		PreparedStatement ps = con.prepareStatement(sql);
+		PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, u.getEmail());
 		ps.setString(2, BCrypt.hashpw(u.getPassword(), BCrypt.gensalt()));
 		ps.setString(3, u.getUsername());
 		ps.setString(4, u.getFirstName());
 		ps.setString(5, u.getLastName());
 		ps.executeUpdate();
+		ResultSet rs = ps.getGeneratedKeys();
+		u.setId(rs.getInt("id"));
 	}
 
 	@Override

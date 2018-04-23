@@ -11,11 +11,5 @@
 	</head>
 		<body>
 			<%@include file="navbar.jsp" %>
-			<form action="getPic">
-				<%
-				Collection<Post> posts = (Collection<Post>)session.getAttribute("posts");
-				 %>
-				 <div><%=  posts + "" %></div>
-			</form>
 		</body>
 </html>
