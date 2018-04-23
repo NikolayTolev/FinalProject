@@ -60,14 +60,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<i>Country</i>
-					</td>
-					<td>
-						<input type="text" name="country" required/>
-					</td>
-				</tr>
-				<tr>
 					<td><input type="submit" value="Register"></td>
 				</tr>
 			</table>

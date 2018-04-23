@@ -6,13 +6,12 @@ import model.Tag;
 import model.db.DBManager;
 
 public enum TagDAO implements ITagDAO {
-	
-	TAG_DAO;
-	
-	private Connection con;
 
-	TagDAO(){
-		con=DBManager.DB_MANAGER.getConnection();
+	TAG_DAO;
+	private Connection con;
+	
+	private TagDAO() {
+		con = DBManager.DB_MANAGER.getConnection();
 	}
 
 	@Override
@@ -26,5 +25,4 @@ public enum TagDAO implements ITagDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

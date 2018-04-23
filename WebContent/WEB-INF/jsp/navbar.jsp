@@ -7,8 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h1>Welcome, <%= session.getAttribute("username") %></h1>
 	<form action="logout" method="get">
 		<input type="submit" value="Logout">
+	</form>
+	<form action="upload.jsp">
+		<input type="submit" value="Add post">
 	</form>
 </body>
 </html>

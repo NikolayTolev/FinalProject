@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,19 +7,19 @@ public class Comment {
 
 	private int id;
 	private User owner;
+	private Post post;
 	private String content;
-	private LocalDateTime time;
 	private List<Comment> replies;
 	
-	public Comment(User user, String content, LocalDateTime time) {
+	public Comment(Post post, User user, String content) {
 		this.owner=user;
+		this.post = post;
 		this.content=content;
-		this.time=time;
 		this.replies=new ArrayList<>();
 	}
 
-	public Comment(int id, User user, String content, LocalDateTime time) {
-		this(user, content, time);
+	public Comment(int id, Post post, User user, String content) {
+		this(post, user, content);
 		this.id = id;
 	}
 
@@ -42,5 +41,9 @@ public class Comment {
 	
 	public void addReply(Comment c) {
 		this.replies.add(c);
+	}
+	
+	public Post getPost() {
+		return post;
 	}
 }

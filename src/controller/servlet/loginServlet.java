@@ -11,24 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.manager.UserManager;
+import model.dao.PostDAO;
 
-/**
- * Servlet implementation class loginServlet
- */
 @WebServlet("/login")
 public class loginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
 		try {
 			UserManager.USER_MANAGER.loginUser(username, password);
 			request.getSession().setAttribute("username", username);
+			request.setAttribute("posts", PostDAO.POST_DAO.getFreshPosts());
 			request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
 		} catch (Exception e) {
 			PrintWriter resp = response.getWriter();
-			resp.write(e.getMessage());
+			resp.print(e.getMessage());
 			request.getRequestDispatcher("login.jsp").include(request, response);
 		}
 		
