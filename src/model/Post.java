@@ -84,6 +84,9 @@ public class Post {
 	public void addComment(Comment c) {
 		comments.add(c);
 	}
-	
 
+	public List<Tag> getTags() {
+		return Collections.unmodifiableList(tags);
+	}
+	
 }

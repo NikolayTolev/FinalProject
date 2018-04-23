@@ -45,6 +45,7 @@ public enum UserManager {
 
 	public void loginUser(String username, String password) throws Exception {
 		User u = UserDAO.USER_DAO.getUserByUsername(username);
+
 		if (username == null || password == null || u == null || !(u.getUsername().equals(username))
 				|| !(BCrypt.checkpw(password, u.getPassword()))) {
 			throw new RuntimeException("Invalid username/password");
